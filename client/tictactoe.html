@@ -3,11 +3,12 @@
 </head>
 
 <body>
-  {{> tictac}}
+  {{> gameBoard}}
+  {{> userInfo}}
 </body>
 
-<template name="tictac">
-	<div class="main">
+<template name="gameBoard">
+	<div class="gameboard">
 	  <div class="row" data-row='1'>
 	  	<div class="col" data-col='1'></div>
 	  	<div class="col" data-col='2'></div>
@@ -23,5 +24,17 @@
 	  	<div class="col" data-col='2'></div>
 	  	<div class="col" data-col='3'></div>
 	  </div>
+	</div>
+</template>
+
+<template name="userInfo">
+	<div class="userinfo">
+		{{#if username}}
+			<h3>{{username}}</h3>
+		{{else}}
+			<form class="form">
+				<input type="text" name="username" class="input" placeholder="Enter your name">
+			</form>
+		{{/if}}
 	</div>
 </template>
