@@ -27,7 +27,7 @@
 .icon-o {
 	background: url('/resources/icon-o.png') 0 0 no-repeat;
 }
-.icon-x, icon-o {
+.icon-x, .icon-o {
 	display: block;
 	width: 100px;
 	height: 100px;
