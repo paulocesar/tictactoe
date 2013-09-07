@@ -1,40 +1,58 @@
 <head>
-  <title>Tic Tac Toe</title>
+  <title>TicTacToe</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 
 <body>
+	<h1 class="center">TicTacToe</h1>
+  {{> userStart}}
   {{> gameBoard}}
-  {{> userInfo}}
+  {{> userOnline}}
 </body>
 
 <template name="gameBoard">
-	<div class="gameboard">
-	  <div class="row" data-row='1'>
-	  	<div class="col" data-col='1'></div>
-	  	<div class="col" data-col='2'></div>
-	  	<div class="col" data-col='3'></div>
-	  </div>
-	  <div class="row" data-row='2'>
-	  	<div class="col" data-col='1'></div>
-	  	<div class="col" data-col='2'></div>
-	  	<div class="col" data-col='3'></div>
-	  </div>
-	  <div class="row" data-row='3'>
-	  	<div class="col" data-col='1'></div>
-	  	<div class="col" data-col='2'></div>
-	  	<div class="col" data-col='3'></div>
-	  </div>
-	</div>
+	{{#if username}}
+		<div class="gameboard">
+		  <div class="row" data-row='1'>
+		  	<div class="col" data-col='1'></div>
+		  	<div class="col" data-col='2'></div>
+		  	<div class="col" data-col='3'></div>
+		  </div>
+		  <div class="row" data-row='2'>
+		  	<div class="col" data-col='1'></div>
+		  	<div class="col" data-col='2'></div>
+		  	<div class="col" data-col='3'></div>
+		  </div>
+		  <div class="row" data-row='3'>
+		  	<div class="col" data-col='1'></div>
+		  	<div class="col" data-col='2'></div>
+		  	<div class="col" data-col='3'></div>
+		  </div>
+		</div>
+	{{/if}}
 </template>
 
-<template name="userInfo">
+<template name="userStart">
 	<div class="userinfo">
 		{{#if username}}
 			<h3>{{username}}</h3>
 		{{else}}
 			<form class="form">
-				<input type="text" name="username" class="input" placeholder="Enter your name">
+				<input type="text" name="username" class="input" placeholder="Start here entering your name.">
 			</form>
 		{{/if}}
 	</div>
+</template>
+
+<template name="userOnline">
+	{{#if onlines}}
+	<div class="userlist">
+		<ul>
+			{{#each onlines}}
+				<li>{{name}}</li>
+			{{/each}}
+		</ul>
+	</div>
+	{{/if}}
 </template>

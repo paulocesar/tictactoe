@@ -1,5 +1,5 @@
 /* CSS declarations go here */
-.gameboard, .userinfo {
+.gameboard, .userinfo, .userlist {
 	margin: 10px auto;
 	width: 350px;	
 	text-align: center;
@@ -38,4 +38,7 @@
 	font-size: 18px;
 	line-height: 30px;
 	width: 100%;
+}
+.center {
+	text-align: center;
 }

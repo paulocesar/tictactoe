@@ -1,25 +1,34 @@
 var WEAPONS = ['icon-x', 'icon-o'];
 var BOARD = [[],[],[]];
 
-Game = new Meteor.Stream('game');
+GameStream = new Meteor.Stream('game');
+Users = new Meteor.Collection('users');
 
-Game.permissions.write(function() { return true; });
-Game.permissions.read(function() { return true; });
+Meteor.publish('onlines', function() {
+	return Users.find({});
+});
 
-Game.on('initialize', function(username) {
+GameStream.permissions.write(function() { return true; });
+GameStream.permissions.read(function() { return true; });
+
+GameStream.on('initialize', function(username) {
+	Users.insert({name: username});
+});
+
+GameStream.on('request', function() {
 	var limit = WEAPONS.length; 
 	if(limit) {
 		var turn = (limit % 2 == 0) ? true : false;
 		var weapon = WEAPONS.pop();
 		console.log("%s has started the game!", username);
-		Game.emit('start', true, turn, weapon);
+		GameStream.emit('start', true, turn, weapon);
 	} else {
 		console.log("%s you can't start on this game!", username);
-		Game.emit('start', false);
+		GameStream.emit('start', false);
 	}
 });
 
-Game.on('shoot', function(weapon, row, col) {
+GameStream.on('shoot', function(weapon, row, col) {
 	console.log("Weapon: %s | Row: %s | Col: %s", weapon, row, col);
-	Game.emit('update', weapon, row, col);
+	GameStream.emit('update', weapon, row, col);
 });

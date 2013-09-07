@@ -1,6 +1,10 @@
-Game = new Meteor.Stream('game');
+Users = new Meteor.Collection('users');
 
-Game.on('start', function(play, turn, weapon) {
+Meteor.startup(function() {
+  Meteor.subscribe('onlines');
+});
+
+GameStream.on('start', function(play, turn, weapon) {
   if(play) {
     if(!Session.get('play')) {
       console.log("Weapon: %s | Turn: %s | Play: %s", weapon, turn, play);
@@ -16,7 +20,7 @@ Game.on('start', function(play, turn, weapon) {
   }
 });
 
-Game.on('update', function(weapon, row, col) {
+GameStream.on('update', function(weapon, row, col) {
   if(Session.get('play')) {
     var board = $('.gameboard');
     var target = board.find('.row[data-row="'+ row +'"]');
@@ -30,10 +34,14 @@ Template.userInfo.events({
     var user = $(event.target).find('.input').val();
     console.log("Username: %s", user);
     Session.set('username', user);
-    Game.emit('initialize', user);
+    GameStream.emit('initialize', user);
     event.preventDefault();
   }
 });
+
+Template.userInfo.onlines = function() {
+  return Users.find({});
+};
 
 Template.userInfo.username = function() {
   return Session.get('username');
@@ -45,7 +53,7 @@ Template.gameBoard.events({
       var weapon = Session.get('weapon');
       var col = $(event.target);
       var row = col.closest('.row');
-      Game.emit('shoot', weapon, row.data('row'), col.data('col'));
+      GameStream.emit('shoot', weapon, row.data('row'), col.data('col'));
     } else {
       alert("First you need to enter your name!");
       $('.input').focus();
