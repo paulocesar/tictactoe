@@ -29,7 +29,7 @@ GameStream.on('update', function(weapon, row, col) {
   }
 });
 
-Template.userInfo.events({
+Template.userStart.events({
   "submit .form": function(event) {
     var user = $(event.target).find('.input').val();
     console.log("Username: %s", user);
@@ -39,11 +39,11 @@ Template.userInfo.events({
   }
 });
 
-Template.userInfo.onlines = function() {
+Template.userStart.onlines = function() {
   return Users.find({});
 };
 
-Template.userInfo.username = function() {
+Template.userStart.username = function() {
   return Session.get('username');
 };
 
