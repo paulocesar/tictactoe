@@ -1,3 +1,5 @@
+
+GameStream = new Meteor.Stream('game');
 Users = new Meteor.Collection('users');
 
 Meteor.startup(function() {
